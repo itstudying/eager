@@ -14,4 +14,9 @@
 3. 统一尽量多格式的配置文件获取值方法
 
 ## 快速入门
+
+```
+go get github.com/itstudying/eager
+```
+
 运行 `example/main.go`，修改config.toml配置文件，发现值发生变化
