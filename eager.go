@@ -20,7 +20,7 @@ const (
 type ConfigType int
 
 // Config struct is details info
-type config struct {
+type Config struct {
 	Path        string
 	MonitorTime time.Duration
 	modTime     time.Time
@@ -30,7 +30,7 @@ type config struct {
 }
 
 // NewConfig method is return Config instance
-func NewConfig(path string) *config {
+func NewConfig(path string) *Config {
 
 	fileInfo, err := os.Stat(path)
 	if err != nil {
@@ -44,13 +44,13 @@ func NewConfig(path string) *config {
 		panic(fmt.Errorf("get file stat error: %s", err.Error()))
 	}
 
-	return &config{Path: path, modTime: fileInfo.ModTime(), MonitorTime: time.Second * 3}
+	return &Config{Path: path, modTime: fileInfo.ModTime(), MonitorTime: time.Second * 3}
 }
 
 //Parse method load config，
 //If config is not empty, the configuration is parsed into config
 //If config is empty, it is parsed into config according to configType, You'll be able to use the get... method
-func (c *config) Parse(configType ConfigType, config interface{}) error {
+func (c *Config) Parse(configType ConfigType, config interface{}) error {
 
 	var parser Parser
 
@@ -80,7 +80,7 @@ func (c *config) Parse(configType ConfigType, config interface{}) error {
 }
 
 //monitorChange monitor file Change
-func (c *config) monitorChange() {
+func (c *Config) monitorChange() {
 
 	ticker := time.NewTicker(c.MonitorTime)
 
